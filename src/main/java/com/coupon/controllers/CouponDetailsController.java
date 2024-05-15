@@ -1,0 +1,27 @@
+package com.coupon.controllers;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+import com.coupon.DAOs.CouponDetailsDAO;
+import com.coupon.DAOs.ProductDetailsDAO;
+import com.coupon.models.Coupon;
+import com.coupon.models.Product;
+@WebServlet ("/couponDetails")
+public class CouponDetailsController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Coupon> coupList = CouponDetailsDAO.couponList();
+		request.setAttribute("clist", coupList);
+		RequestDispatcher rdispatch = request.getRequestDispatcher("CouponDetails.jsp");
+		rdispatch.forward(request, response);
+	}
+}
